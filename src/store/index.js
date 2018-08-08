@@ -14,11 +14,8 @@ const store = createStore(
     ),
     prevState,
     composeWithDevTools(
-        applyMiddleware(localStorageMiddleWare,),
-    ),
+        applyMiddleware(localStorageMiddleWare),
+    )
 );
-
-
-
 
 export default store;

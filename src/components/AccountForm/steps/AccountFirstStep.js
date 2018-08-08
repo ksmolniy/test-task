@@ -4,7 +4,9 @@ import { FieldTextInput, FieldNumberInput, FieldSelect } from 'test-task-ui-kit'
 import PropTypes from 'prop-types';
 import { genders } from '~/constants';
 
-class AccountFirstStep extends React.Component {
+// seems like all steps are almost the same
+// maybe better to create hoc?
+    class AccountFirstStep extends React.Component {
     constructor() {
         super();
 

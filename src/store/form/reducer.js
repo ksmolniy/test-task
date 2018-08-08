@@ -1,6 +1,12 @@
 import * as types from './types';
 
-export default function formReducer(state = { step: 1, data: {} }, action) {
+// easier to understand and maintain
+const initialState = { 
+    step: 1,
+    data: {}
+};
+
+export default function formReducer(state = initialState, action) {
     switch (action.type){
         case types.UPDATE_FORM:
             return {

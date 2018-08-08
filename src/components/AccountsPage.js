@@ -15,8 +15,8 @@ function createRow(item, selectRow, selectedRow) {
         <td>{item.prefer}</td>
     </tr>
 }
-
-class AccountsPage extends React.Component {
+// propTypes?
+    class AccountsPage extends React.Component {
     constructor() {
         super();
 
@@ -78,4 +78,30 @@ const mapDispatchToProps = (dispatch) => {
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(AccountsPage);
+    //it looks like Container?
+    //it is difficult to distinguish containers from components in the file explorer
+    //recomentdation:
+    //  AccountsPageContainer.js - ContainerComponent
+    //  AccountFirstStep.js - Dump Component
+    export default connect(mapStateToProps, mapDispatchToProps)(AccountsPage);
+
+
+    //and even better move container (data inject logic to a separate file)
+    //profit: data inject from state is in one place (folder)
+    /*
+    AccountsPageContainer.js
+
+    import AccountsPage from 'components/AccountsPage';
+
+    export default connect(({ users }) => {
+        return {
+            users,
+        }
+    }, (dispatch) => {
+        return {
+            getUserToForm(id) {
+                dispatch(getUserToForm(id));
+            },
+        }
+    })(AccountsPage);
+    */
