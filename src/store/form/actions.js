@@ -1,4 +1,5 @@
 import * as types from './types'
+import store from '../index';
 
 function pad2(number) {
     return ( number < 10 ? '0' : '') + number;
@@ -48,5 +49,16 @@ export function setDefaulFormValue() {
     return {
         type: types.DEFAULT_FORM,
         data: getDefaulFormValue(),
+    }
+}
+
+export function getUserToForm(id) {
+    const state = store.getState();
+
+    const user = state.users.find(item => item.id === +id);
+
+    return {
+        type: types.USER_FORM,
+        data: { ...user },
     }
 }

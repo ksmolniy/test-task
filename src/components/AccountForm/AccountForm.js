@@ -7,7 +7,7 @@ import AccountReview from './AccountReview';
 import { connect } from 'react-redux';
 
 import { updateFormState, clearForm } from '~/store/form/actions'
-import { createUser } from '~/store/users/actions'
+import { createUser, updateUser } from '~/store/users/actions'
 
 class AccountForm extends React.Component {
     constructor() {
@@ -28,7 +28,11 @@ class AccountForm extends React.Component {
     }
 
     save() {
-        this.props.createUser(this.props.data);
+        if (this.props.match.params.id) {
+            this.props.editUser(this.props.data);
+        } else {
+            this.props.createUser(this.props.data);
+        }
         this.props.history.push(`/accounts`)
     }
 
@@ -63,6 +67,10 @@ const mapDispatchToProps = (dispatch) => {
             dispatch(createUser(data));
             dispatch(clearForm());
         },
+        editUser(data) {
+            dispatch(updateUser(data));
+            dispatch(clearForm());
+        }
     }
 }
 

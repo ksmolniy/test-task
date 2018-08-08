@@ -1,6 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { getUserToForm } from '~/store/form/actions/'
+
 
 function getFullName(item) {
     return `${item.surname} ${item.firstName} ${item.lastName}`;
@@ -23,12 +25,20 @@ class AccountsPage extends React.Component {
         };
 
         this.selectRow = this.selectRow.bind(this);
+        this.editUser = this.editUser.bind(this);
     }
 
     selectRow(e) {
         this.setState({
             selectedRow: +e.currentTarget.dataset.id,
         })
+    }
+
+    editUser() {
+        if (this.state.selectedRow) {
+            this.props.getUserToForm(this.state.selectedRow);
+            this.props.history.push(`/edit-account/${this.state.selectedRow}`)
+        }
     }
 
     render() {
@@ -48,7 +58,7 @@ class AccountsPage extends React.Component {
             </table>
             <div className="d-flex justify-content-between w-100">
                 <Link className="btn btn-primary" to="/">Back to home</Link>
-                <Link className="btn btn-primary" to={this.state.selectedRow ? `/edit-account/${this.state.selectedRow}` : '/accounts'} >Edit selected account</Link>
+                <button className={ `btn btn-primary ${!this.state.selectedRow && 'disabled'}`} onClick={this.editUser} >Edit selected account</button>
             </div>
         </React.Fragment>)
     }
@@ -60,4 +70,12 @@ const mapStateToProps = ({ users }) => {
     }
 }
 
-export default connect(mapStateToProps)(AccountsPage);
+const mapDispatchToProps = (dispatch) => {
+    return {
+        getUserToForm(id) {
+            dispatch(getUserToForm(id));
+        },
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(AccountsPage);

@@ -3,7 +3,7 @@ import { BrowserRouter, Route } from 'react-router-dom';
 import WelcomePage from './components/WelcomePage'
 import AccountsPage from './components/AccountsPage'
 import AccountForm from './components/AccountForm/AccountForm'
-
+import './App.css';
 class App extends Component {
   render() {
     return (
