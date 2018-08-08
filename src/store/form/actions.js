@@ -1,9 +1,52 @@
-import { UPDATE_FORM } from './types'
+import * as types from './types'
+
+function pad2(number) {
+    return ( number < 10 ? '0' : '') + number;
+}
+
+function formatDateToInput(date) {
+    const formatedDay = pad2(date.getDate());
+    const formatedMonth = pad2(date.getMonth()+1);
+    return `${date.getFullYear()}-${formatedMonth}-${formatedDay}`
+}
+
+function getDefaulFormValue() {
+    return {
+       firstName: '',
+       lastName: '',
+       surname: '',
+       gender: 'm',
+       age: 18,
+       prefer: 'bike',
+       date: formatDateToInput(new Date()),
+       country: 'USA',
+       policy: true,
+       multiSelect: [],
+       rating: 3,
+       happiness: 50,
+       about: '',
+    };
+}
 
 export function updateFormState(step, data) {
     return {
-        type: UPDATE_FORM,
+        type: types.UPDATE_FORM,
         data: { ...data },
         step,
+    }
+}
+
+export function clearForm(data) {
+    return {
+        type: types.CLEAR_FORM,
+        data: {},
+        step: 1,
+    }
+}
+
+export function setDefaulFormValue() {
+    return {
+        type: types.DEFAULT_FORM,
+        data: getDefaulFormValue(),
     }
 }

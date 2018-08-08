@@ -5,28 +5,9 @@ import PropTypes from 'prop-types';
 
 import { prefers, countries } from '~/constants'
 
-function pad2(number) {
-    return ( number < 10 ? '0' : '') + number;
-}
-
-function formatDateToInput(date) {
-    const formatedDay = pad2(date.getDate());
-    const formatedMonth = pad2(date.getMonth()+1);
-    return `${date.getFullYear()}-${formatedMonth}-${formatedDay}`
-}
-
 class AccountSecondStep extends React.Component {
     constructor() {
         super();
-
-        // const formatedDate = formatDateToInput(new Date());
-
-        // this.state = {
-        //     prefer: 'bike',
-        //     date: formatedDate,
-        //     country: 'USA',
-        //     policy: true,
-        // };
 
         this.handleChange = this.handleChange.bind(this);
     }

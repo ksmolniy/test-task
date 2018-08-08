@@ -7,6 +7,11 @@ export default function formReducer(state = { step: 1, data: {} }, action) {
                 data : { ...state.data ,...action.data },
                 step: action.step,
             };
+        case types.CLEAR_FORM:
+            return {
+                data : { ...action.data },
+                step: action.step,
+            };
         default: 
             return state;
     }

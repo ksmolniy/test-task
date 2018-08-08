@@ -9,13 +9,6 @@ class AccountThirdStep extends React.Component {
     constructor() {
         super();
 
-        // this.state = {
-        //     multiSelect: [],
-        //     rating: 3,
-        //     happiness: 50,
-        //     about: 'Some details',
-        // };
-
         this.handleChange = this.handleChange.bind(this);
     }
 
