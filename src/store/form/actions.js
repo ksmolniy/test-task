@@ -1,37 +1,32 @@
 import * as types from './types';
 import store from '../index';
 import * as helpers from './helpers';
+import { createAction } from 'redux-actions';
 
-export function updateFormState(step, data) {
-    return {
-        type: types.UPDATE_FORM,
+export const updateFormState = createAction(types.UPDATE_FORM, (step, data) => ({
         data: { ...data },
         step,
-    };
-}
+    }),
+);
 
-export function clearForm(data) {
-    return {
-        type: types.CLEAR_FORM,
+export const clearForm =  createAction(types.CLEAR_FORM, data => ({
         data: {},
         step: 1,
-    };
-}
+    }),
+);
 
-export function setDefaulFormValue() {
-    return {
-        type: types.DEFAULT_FORM,
+export const setDefaulFormValue = createAction(types.DEFAULT_FORM, data => ({
         data: helpers.getDefaulFormValue(),
-    };
-}
+    }),
+);
 
-export function getUserToForm(id) {
-    const state = store.getState();
-
-    const user = state.users.find(item => item.id === +id);
-
-    return {
-        type: types.USER_FORM,
-        data: { ...user },
-    };
-}
+export const getUserToForm = createAction(types.USER_FORM, id => {
+        const state = store.getState();
+    
+        const user = state.users.find(item => item.id === +id);
+    
+        return {
+            data: { ...user },
+        }
+    },
+);
