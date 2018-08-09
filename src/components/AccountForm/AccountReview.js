@@ -3,6 +3,8 @@ import { Field } from 'test-task-ui-kit';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
+import * as routes from '~/constants/routes';
+
 const AccountReview = ({ data, onSave, onBackToEditor }) => {
     return <React.Fragment>
         <div className="row w-100">
@@ -14,7 +16,7 @@ const AccountReview = ({ data, onSave, onBackToEditor }) => {
             { Object.entries(data).map( ([key, value]) => <Field key={key} label={key} value={value} />) }
         </div>
         <div className="d-flex justify-content-between w-100">
-            <Link className="btn btn-primary" to="/">Back to home</Link>
+            <Link className="btn btn-primary" to={routes.MAIN}>Back to home</Link>
             <div>
                 <button className="btn d-block btn-primary mb-2" onClick={onBackToEditor}>Back to editor</button>
                 <button className="btn d-block btn-primary" onClick={onSave}>Save</button>

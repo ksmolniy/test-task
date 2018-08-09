@@ -6,8 +6,8 @@ import AccountReview from './AccountReview';
 
 import { connect } from 'react-redux';
 
-import { updateFormState, clearForm } from '~/store/form/actions'
-import { createUser, updateUser } from '~/store/users/actions'
+import { updateFormState, clearForm } from '~/store/form/actions';
+import { createUser, updateUser } from '~/store/users/actions';
 
 class AccountForm extends React.Component {
     constructor() {

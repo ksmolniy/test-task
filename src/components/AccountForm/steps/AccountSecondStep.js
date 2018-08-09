@@ -1,59 +1,47 @@
 import React from 'react';
 import { FieldRadioGroup, FieldSelect, FieldDate, FieldCheckBox } from 'test-task-ui-kit';
-
 import PropTypes from 'prop-types';
 
-import { prefers, countries } from '~/constants'
+import { prefers, countries } from '~/constants';
 
-class AccountSecondStep extends React.Component {
-    constructor() {
-        super();
+import AccountFormStep from './AccountFormStep';
 
-        this.handleChange = this.handleChange.bind(this);
-    }
-
-    handleChange(e, field) {
-        this.props.onChange({
-            ...this.props.data,
-            [field]: e.target.value,
-        });
-    }
-
-    render() {
-        return (
-            <React.Fragment>
-                <FieldRadioGroup
-                    label="Prefer"
-                    value={this.props.data.prefer}
-                    onChange={(e) => this.handleChange(e,'prefer')}
-                    options={prefers}
-                />
-                <FieldDate
-                    label="Date"
-                    value={this.props.data.date}
-                    onChange={(e) => this.handleChange(e,'date')} 
-                />
-                <FieldSelect
-                    label="County"
-                    placeholder="County"
-                    options={countries}
-                    value={this.props.data.country}
-                    onChange={(e) => this.handleChange(e,'country')} 
-                />
-                <FieldCheckBox
-                    label="Policy"
-                    text="I aggree"
-                    value={this.props.data.policy}
-                    onChange={(e) => this.handleChange(e,'policy')} 
-                />
-                <button className="btn btn-primary" onClick={this.props.submit}>Next step</button>
-            </React.Fragment>
-        );
-    }
+const AccountSecondStep = ({ data = {}, submit, handleChange }) => {
+    return (
+        <React.Fragment>
+            <FieldRadioGroup
+                label="Prefer"
+                value={data.prefer}
+                onChange={(e) => handleChange(e,'prefer')}
+                options={prefers}
+            />
+            <FieldDate
+                label="Date"
+                value={data.date}
+                onChange={(e) => handleChange(e,'date')} 
+            />
+            <FieldSelect
+                label="County"
+                placeholder="County"
+                options={countries}
+                value={data.country}
+                onChange={(e) => handleChange(e,'country')} 
+            />
+            <FieldCheckBox
+                label="Policy"
+                text="I aggree"
+                value={data.policy}
+                onChange={(e) => handleChange(e,'policy')} 
+            />
+            <button className="btn btn-primary" onClick={submit}>Next step</button>
+        </React.Fragment>
+    );
 }
 
 AccountSecondStep.propTypes = {
     submit: PropTypes.func.isRequired,
+    handleChange: PropTypes.func.isRequired,
+    data: PropTypes.object,
 }
 
-export default AccountSecondStep;
+export default AccountFormStep(AccountSecondStep);
