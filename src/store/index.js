@@ -6,27 +6,30 @@ import { createLocalStorageMiddleWare, getInitialLocalStorageState } from './loc
 import { createIndexedDBMiddleWare, getInitialIndexedDBState } from './indexedDBMiddleWare';
 import { asyncInitialStateReducer, asyncInitialStateAction } from './loadAsyncInitailState';
 
+import { PREFIX as USERS_PREFIX } from './users/types';
+import { PREFIX as FORM_PREFIX } from './form/types';
+
 
 const prevState = {
-    form: getInitialLocalStorageState('form'),
-    users: [],
+    [FORM_PREFIX]: getInitialLocalStorageState(FORM_PREFIX),
+    [USERS_PREFIX]: [],
 };
 
 const store = createStore(
     combineReducers({
-            users : asyncInitialStateReducer(usersReducer, 'users'),
-            form: formReducer,
+            [USERS_PREFIX] : asyncInitialStateReducer(usersReducer, USERS_PREFIX),
+            [FORM_PREFIX]: formReducer,
         },
     ),
     prevState,
     composeWithDevTools(
         applyMiddleware(
-            createLocalStorageMiddleWare('form'),
-            createIndexedDBMiddleWare('users'),
+            createLocalStorageMiddleWare(FORM_PREFIX),
+            createIndexedDBMiddleWare(USERS_PREFIX),
         ),
     ),
 );
 
-getInitialIndexedDBState('users').then(res => asyncInitialStateAction('users', res.data, store.dispatch));
+getInitialIndexedDBState(USERS_PREFIX).then(res => asyncInitialStateAction(USERS_PREFIX, res.data, store.dispatch));
 
 export default store;

@@ -1,4 +1,6 @@
-export const UPDATE_FORM = 'form/update';
-export const CLEAR_FORM = 'form/clear';
-export const DEFAULT_FORM = 'form/setDefault';
-export const USER_FORM = 'form/getUser';
+export const PREFIX = 'form';
+
+export const UPDATE_FORM = `${PREFIX}/update`;
+export const CLEAR_FORM = `${PREFIX}/clear`;
+export const DEFAULT_FORM = `${PREFIX}/setDefault`;
+export const USER_FORM = `${PREFIX}/getUser`;

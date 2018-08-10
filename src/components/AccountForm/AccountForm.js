@@ -7,7 +7,10 @@ import AccountReview from './AccountReview';
 import { connect } from 'react-redux';
 
 import { updateFormState, clearForm } from '~/store/form/actions';
+import { PREFIX as FORM_PREFIX } from '~/store/form/types';
 import { createUser, updateUser } from '~/store/users/actions';
+
+import * as routes from '~/constants/routes'
 
 class AccountForm extends React.Component {
     constructor() {
@@ -33,7 +36,7 @@ class AccountForm extends React.Component {
         } else {
             this.props.createUser(this.props.data);
         }
-        this.props.history.push(`/accounts`)
+        this.props.history.push(routes.ACCOUNTS)
     }
 
     backToEditor() {
@@ -51,10 +54,10 @@ class AccountForm extends React.Component {
     }
 }
 
-const mapStateToProps = ({ form }) => {
+const mapStateToProps = state => {
     return {
-        step: form.step,
-        data: form.data,
+        step: state[FORM_PREFIX].step,
+        data: state[FORM_PREFIX].data,
     }
 };
 

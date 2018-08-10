@@ -3,10 +3,11 @@ import { getUserToForm } from '~/store/form/actions/';
 
 import AccountsPage from './AccountsPage';
 
+import { PREFIX as USERS_PREFIX } from '~/store/users/types';
 
-const mapStateToProps = ({ users }) => {
+const mapStateToProps = state => {
     return {
-        users,
+        users: state[USERS_PREFIX],
     }
 }
 
