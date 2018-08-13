@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 import * as routes from '~/constants/routes' 
+import { User } from '../../data/User';
 
 function getFullName(item) {
     return `${item.surname} ${item.firstName} ${item.lastName}`;
@@ -66,7 +67,7 @@ class AccountsPage extends React.Component {
 }
 
 AccountsPage.propTypes = {
-    users: PropTypes.arrayOf(PropTypes.object),
+    users: PropTypes.arrayOf(PropTypes.instanceOf(User)),
 };
 
 export default AccountsPage;

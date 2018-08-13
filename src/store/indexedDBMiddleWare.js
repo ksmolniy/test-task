@@ -1,7 +1,7 @@
 import { getReducer, getStorage, setReducer } from './indexDBController';
 
-export const getInitialIndexedDBState = reducerName => {
-    return getReducer(reducerName);
+export const getInitialIndexedDBState = (reducerName, initialState) => {
+    return getReducer(reducerName).then(res => res === -1 ? { data: initialState} : res);
 }
 
 export const createIndexedDBMiddleWare = reducerName => store => next => action => {

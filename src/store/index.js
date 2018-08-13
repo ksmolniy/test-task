@@ -30,6 +30,6 @@ const store = createStore(
     ),
 );
 
-getInitialIndexedDBState(USERS_PREFIX).then(res => asyncInitialStateAction(USERS_PREFIX, res.data, store.dispatch));
+getInitialIndexedDBState(USERS_PREFIX, []).then(res => asyncInitialStateAction(USERS_PREFIX, res.data, store.dispatch));
 
 export default store;

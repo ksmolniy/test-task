@@ -11,6 +11,7 @@ import { PREFIX as FORM_PREFIX } from '~/store/form/types';
 import { createUser, updateUser } from '~/store/users/actions';
 
 import * as routes from '~/constants/routes'
+import { User } from '../../data/User';
 
 class AccountForm extends React.Component {
     constructor() {
@@ -31,12 +32,16 @@ class AccountForm extends React.Component {
     }
 
     save() {
-        if (this.props.match.params.id) {
-            this.props.editUser(this.props.data);
-        } else {
-            this.props.createUser(this.props.data);
+        try {
+            if (this.props.match.params.id) {
+                this.props.editUser(this.props.data);
+            } else {
+                this.props.createUser(this.props.data);
+            }
+            this.props.history.push(routes.ACCOUNTS)
+        } catch(e) {
+            alert(e.message);
         }
-        this.props.history.push(routes.ACCOUNTS)
     }
 
     backToEditor() {
