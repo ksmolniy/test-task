@@ -13,3 +13,13 @@ export const createIndexedDBMiddleWare = reducerName => store => next => action 
 
     return result;
 }
+
+export const createImmutableDBMiddleWare = reducerName => store => next => action => {
+    const result = next(action);
+
+    if (action.type.startsWith(`${reducerName}/`)) { 
+        setReducer({ reducer: reducerName, data: store.getState()[reducerName].toJS() });
+    }
+
+    return result;
+}

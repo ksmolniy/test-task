@@ -3,7 +3,7 @@ import usersReducer from './users/reducer';
 import formReducer from './form/reducer';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import { createLocalStorageMiddleWare, getInitialLocalStorageState } from './localStorageMiddleWare';
-import { createIndexedDBMiddleWare, getInitialIndexedDBState } from './indexedDBMiddleWare';
+import { createImmutableDBMiddleWare, createIndexedDBMiddleWare, getInitialIndexedDBState } from './indexedDBMiddleWare';
 import { asyncInitialStateReducer, asyncInitialStateAction } from './loadAsyncInitailState';
 
 import { PREFIX as USERS_PREFIX } from './users/types';
@@ -26,7 +26,7 @@ const store = createStore(
     composeWithDevTools(
         applyMiddleware(
             createLocalStorageMiddleWare(FORM_PREFIX),
-            createIndexedDBMiddleWare(USERS_PREFIX),
+            createImmutableDBMiddleWare(USERS_PREFIX),
         ),
     ),
 );
