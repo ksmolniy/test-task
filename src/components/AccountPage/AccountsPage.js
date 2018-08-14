@@ -7,6 +7,8 @@ import * as routes from '~/constants/routes'
 import { User } from '../../data/User';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 
+import { compose, setPropTypes, withState, withHandlers } from 'recompose';
+
 function getFullName(item) {
     return `${item.surname} ${item.firstName} ${item.lastName}`;
 }
@@ -19,56 +21,42 @@ function createRow(item, selectRow, selectedRow) {
     </tr>
 }
 
-class AccountsPage extends React.Component {
-    constructor() {
-        super();
-
-        this.state = {
-            selectedRow: null,
-        };
-
-        this.selectRow = this.selectRow.bind(this);
-        this.editUser = this.editUser.bind(this);
-    }
-
-    selectRow(e) {
-        this.setState({
-            selectedRow: +e.currentTarget.dataset.id,
-        })
-    }
-
-    editUser() {
-        if (this.state.selectedRow) {
-            this.props.getUserToForm(this.state.selectedRow);
-            this.props.history.push(`${routes.EDIT_ACCOUNT}${this.state.selectedRow}`)
-        }
-    }
-
-    render() {
-        return (<React.Fragment>
-            <h2>Accounts list</h2>
-            <table className="table">
-                <thead>
-                    <tr>
-                        <th>Account name</th>
-                        <th>Rating</th>
-                        <th>Prefer</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    { this.props.users.map(item => createRow(item, this.selectRow, this.state.selectedRow)) }
-                </tbody>
-            </table>
-            <div className="d-flex justify-content-between w-100">
-                <Link className="btn btn-primary" to={routes.MAIN}>Back to home</Link>
-                <button className={ `btn btn-primary ${!this.state.selectedRow && 'disabled'}`} onClick={this.editUser} >Edit selected account</button>
-            </div>
-        </React.Fragment>)
-    }
+const AccountsPage = ({ selectedRow, selectRow, users, editUser }) => {
+    return (<React.Fragment>
+        <h2>Accounts list</h2>
+        <table className="table">
+            <thead>
+                <tr>
+                    <th>Account name</th>
+                    <th>Rating</th>
+                    <th>Prefer</th>
+                </tr>
+            </thead>
+            <tbody>
+                { users.map(item => createRow(item, selectRow, selectedRow)) }
+            </tbody>
+        </table>
+        <div className="d-flex justify-content-between w-100">
+            <Link className="btn btn-primary" to={routes.MAIN}>Back to home</Link>
+            <button className={ `btn btn-primary ${!selectedRow && 'disabled'}`} onClick={editUser} >Edit selected account</button>
+        </div>
+    </React.Fragment>)
 }
 
-AccountsPage.propTypes = {
-    users: ImmutablePropTypes.listOf(PropTypes.instanceOf(User)),
-};
 
-export default AccountsPage;
+export default compose(
+    withState('selectedRow', 'changeSelectedRow', null),
+    setPropTypes({
+        users: ImmutablePropTypes.listOf(PropTypes.instanceOf(User)),
+    }),
+    withHandlers({
+        selectRow: ({ changeSelectedRow }) => event => changeSelectedRow(+event.currentTarget.dataset.id),
+        editUser: ({ selectedRow, getUserToForm, history }) => event => {
+            if (selectedRow) {
+                getUserToForm(selectedRow);
+                history.push(`${routes.EDIT_ACCOUNT}${this.state.selectedRow}`);
+            }
+        },
+    })
+
+)(AccountsPage);
