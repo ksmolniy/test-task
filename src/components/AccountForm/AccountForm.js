@@ -4,6 +4,8 @@ import AccountSecondStep from './steps/AccountSecondStep';
 import AccountThirdStep from './steps/AccountThirdStep';
 import AccountReview from './AccountReview';
 
+import PropTypes from 'prop-types';
+
 import { connect } from 'react-redux';
 
 import { updateFormState, clearForm } from '~/store/form/actions';
@@ -11,51 +13,16 @@ import { PREFIX as FORM_PREFIX } from '~/store/form/types';
 import { createUser, updateUser } from '~/store/users/actions';
 
 import * as routes from '~/constants/routes';
+import { compose, withHandlers, setPropTypes } from 'recompose';
 
-class AccountForm extends React.Component {
-    constructor() {
-        super();
-
-        this.submitStep = this.submitStep.bind(this);
-        this.dataChanged = this.dataChanged.bind(this);
-        this.backToEditor = this.backToEditor.bind(this);
-        this.save = this.save.bind(this);
-    }
-
-    submitStep() {
-        this.props.updateFormState(this.props.step + 1, this.props.data);
-    }
-
-    dataChanged(data) {
-        this.props.updateFormState(this.props.step, data);
-    }
-
-    save() {
-        try {
-            if (this.props.match.params.id) {
-                this.props.editUser(this.props.data);
-            } else {
-                this.props.createUser(this.props.data);
-            }
-            this.props.history.push(routes.ACCOUNTS)
-        } catch(e) {
-            alert(e.message);
-        }
-    }
-
-    backToEditor() {
-        this.props.updateFormState(1, this.props.data);
-    }
-
-    render() {
-        return (<React.Fragment>
-            <h2>{this.props.step !== 4 ? `Editor step ${this.props.step}` : 'Editor Review'}</h2>
-            { this.props.step === 1 && <AccountFirstStep submit={this.submitStep} onChange={this.dataChanged} data={this.props.data} /> }
-            { this.props.step === 2 && <AccountSecondStep submit={this.submitStep} onChange={this.dataChanged} data={this.props.data} /> }
-            { this.props.step === 3 && <AccountThirdStep submit={this.submitStep} onChange={this.dataChanged} data={this.props.data} /> }
-            { this.props.step === 4 && <AccountReview onSave={this.save} onBackToEditor={this.backToEditor} data={this.props.data} /> }
-        </React.Fragment>)
-    }
+const AccountForm = ({ step, data = {}, submitStep, save, backToEditor, dataChanged }) => {
+    return (<React.Fragment>
+        <h2>{step !== 4 ? `Editor step ${step}` : 'Editor Review'}</h2>
+        { step === 1 && <AccountFirstStep submit={submitStep} onChange={dataChanged} data={data} /> }
+        { step === 2 && <AccountSecondStep submit={submitStep} onChange={dataChanged} data={data} /> }
+        { step === 3 && <AccountThirdStep submit={submitStep} onChange={dataChanged} data={data} /> }
+        { step === 4 && <AccountReview onSave={save} onBackToEditor={backToEditor} data={data} /> }
+    </React.Fragment>)
 }
 
 const mapStateToProps = state => {
@@ -81,4 +48,33 @@ const mapDispatchToProps = (dispatch) => {
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(AccountForm);
+export default compose(
+    connect(mapStateToProps, mapDispatchToProps),
+    withHandlers({
+        submitStep: ({ updateFormState, step, data }) => () => {
+            updateFormState(step+1, data);
+        },
+        dataChanged: ({ updateFormState, step, data }) => newData => {
+            updateFormState(step, newData);
+        },
+        save: ({ match, editUser, createUser, data, history }) => () => {
+            try {
+                if (match.params.id) {
+                    editUser(data);
+                } else {
+                    createUser(data);
+                }
+                history.push(routes.ACCOUNTS)
+            } catch(e) {
+                alert(e.message);
+            }
+        },
+        backToEditor: ({ updateFormState, data }) => () => {
+            updateFormState(1, data)
+        },
+    }),
+    setPropTypes({
+        step: PropTypes.number.isRequired,
+        data: PropTypes.object,
+    }),
+)(AccountForm);

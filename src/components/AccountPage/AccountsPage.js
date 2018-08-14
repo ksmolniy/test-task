@@ -51,7 +51,7 @@ export default compose(
     }),
     withHandlers({
         selectRow: ({ changeSelectedRow }) => event => changeSelectedRow(+event.currentTarget.dataset.id),
-        editUser: ({ selectedRow, getUserToForm, history }) => event => {
+        editUser: ({ selectedRow, getUserToForm, history }) => () => {
             if (selectedRow) {
                 getUserToForm(selectedRow);
                 history.push(`${routes.EDIT_ACCOUNT}${this.state.selectedRow}`);
