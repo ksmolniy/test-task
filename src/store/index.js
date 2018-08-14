@@ -9,10 +9,11 @@ import { asyncInitialStateReducer, asyncInitialStateAction } from './loadAsyncIn
 import { PREFIX as USERS_PREFIX } from './users/types';
 import { PREFIX as FORM_PREFIX } from './form/types';
 
+import { List } from 'immutable';
 
 const prevState = {
     [FORM_PREFIX]: getInitialLocalStorageState(FORM_PREFIX),
-    [USERS_PREFIX]: [],
+    [USERS_PREFIX]: List(),
 };
 
 const store = createStore(
@@ -30,6 +31,6 @@ const store = createStore(
     ),
 );
 
-getInitialIndexedDBState(USERS_PREFIX, []).then(res => asyncInitialStateAction(USERS_PREFIX, res.data, store.dispatch));
+getInitialIndexedDBState(USERS_PREFIX, []).then(res => asyncInitialStateAction(USERS_PREFIX, List(res.data), store.dispatch));
 
 export default store;

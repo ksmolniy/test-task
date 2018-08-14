@@ -10,8 +10,7 @@ import { updateFormState, clearForm } from '~/store/form/actions';
 import { PREFIX as FORM_PREFIX } from '~/store/form/types';
 import { createUser, updateUser } from '~/store/users/actions';
 
-import * as routes from '~/constants/routes'
-import { User } from '../../data/User';
+import * as routes from '~/constants/routes';
 
 class AccountForm extends React.Component {
     constructor() {
