@@ -21,14 +21,14 @@ function createRow(item, selectRow, selectedRow) {
     </tr>
 }
 
-const AccountsPage = ({ selectedRow, selectRow, users, editUser }) => {
+const AccountsPage = ({ selectedRow, selectRow, users, editUser, averageRating }) => {
     return (<React.Fragment>
         <h2>Accounts list</h2>
         <table className="table">
             <thead>
                 <tr>
                     <th>Account name</th>
-                    <th>Rating</th>
+                    <th>Rating (Average:{averageRating})</th>
                     <th>Prefer</th>
                 </tr>
             </thead>
@@ -54,7 +54,7 @@ export default compose(
         editUser: ({ selectedRow, getUserToForm, history }) => () => {
             if (selectedRow) {
                 getUserToForm(selectedRow);
-                history.push(`${routes.EDIT_ACCOUNT}${this.state.selectedRow}`);
+                history.push(`${routes.EDIT_ACCOUNT}${selectedRow}`);
             }
         },
     })
