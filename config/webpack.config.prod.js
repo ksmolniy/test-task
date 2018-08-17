@@ -213,6 +213,14 @@ module.exports = {
             ),
             // Note: this won't work without `new ExtractTextPlugin()` in `plugins`.
           },
+          {
+            test: /\.s[ca]ss$/,
+            use: [
+                require.resolve("style-loader"), // creates style nodes from JS strings
+                require.resolve("css-loader"), // translates CSS into CommonJS
+                require.resolve("sass-loader"), // compiles Sass to CSS, using Node Sass by default
+            ]
+          },
           // "file" loader makes sure assets end up in the `build` folder.
           // When you `import` an asset, you get its filename.
           // This loader doesn't use a "test" so it will catch all modules

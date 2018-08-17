@@ -152,6 +152,22 @@ module.exports = {
               cacheDirectory: true,
             },
           },
+          {
+            test: /\.s[ca]ss$/,
+            use: [
+                require.resolve("style-loader"), // creates style nodes from JS strings
+                require.resolve("css-loader"), // translates CSS into CommonJS
+                {
+                  loader: require.resolve("sass-loader"),
+                  options: {
+                    "includePaths": [
+                      require('path').resolve(__dirname, 'node_modules'),
+                      require('path').resolve(__dirname, '../ui-kit'),
+                    ]
+                  }
+                }// compiles Sass to CSS, using Node Sass by default
+            ]
+          },
           // "postcss" loader applies autoprefixer to our CSS.
           // "css" loader resolves paths in CSS and adds assets as dependencies.
           // "style" loader turns CSS into JS modules that inject <style> tags.

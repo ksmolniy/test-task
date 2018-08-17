@@ -12,7 +12,7 @@ import { PREFIX as FORM_PREFIX } from './form/types';
 import { List } from 'immutable';
 
 const prevState = {
-    [FORM_PREFIX]: getInitialLocalStorageState(FORM_PREFIX),
+    [FORM_PREFIX]: getInitialLocalStorageState(FORM_PREFIX, { data: {}, step: 1 }),
     [USERS_PREFIX]: List(),
 };
 

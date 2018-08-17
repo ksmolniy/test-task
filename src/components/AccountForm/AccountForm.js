@@ -15,13 +15,13 @@ import { createUser, updateUser } from '~/store/users/actions';
 import * as routes from '~/constants/routes';
 import { compose, withHandlers, setPropTypes } from 'recompose';
 
-const AccountForm = ({ step, data = {}, submitStep, save, backToEditor, dataChanged }) => {
+const AccountForm = ({ step, data = {}, submitStep, save, backToEditor, dataChanged, stepChanged }) => {
     return (<React.Fragment>
         <h2>{step !== 4 ? `Editor step ${step}` : 'Editor Review'}</h2>
         { step === 1 && <AccountFirstStep submit={submitStep} onChange={dataChanged} data={data} /> }
         { step === 2 && <AccountSecondStep submit={submitStep} onChange={dataChanged} data={data} /> }
         { step === 3 && <AccountThirdStep submit={submitStep} onChange={dataChanged} data={data} /> }
-        { step === 4 && <AccountReview onSave={save} onBackToEditor={backToEditor} data={data} /> }
+        { step === 4 && <AccountReview onSave={save} stepChanged={stepChanged} onBackToEditor={backToEditor} data={data} /> }
     </React.Fragment>)
 }
 
@@ -56,6 +56,9 @@ export default compose(
         },
         dataChanged: ({ updateFormState, step, data }) => newData => {
             updateFormState(step, newData);
+        },
+        stepChanged: ({ updateFormState, data }) => step => {
+            updateFormState(step, data);
         },
         save: ({ match, editUser, createUser, data, history }) => () => {
             try {

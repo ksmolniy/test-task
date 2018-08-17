@@ -40,7 +40,7 @@ const AccountFirstStep = ({ data = {}, submit, handleChange }) => {
                 value={data.age}
                 onChange={(e) => handleChange(e,'age')}
             />
-            <button className="btn btn-primary" onClick={submit}>Next step</button>
+            <button className="c-btn c-btn--primary" onClick={submit}>Next step</button>
         </React.Fragment>
     );
 }

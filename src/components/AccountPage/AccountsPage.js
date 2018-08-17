@@ -14,7 +14,7 @@ function getFullName(item) {
 }
 
 function createRow(item, selectRow, selectedRow) {
-    return <tr data-id={item.id} onClick={selectRow} className={item.id === selectedRow ? 'table-active' : ''} key={item.id}>
+    return <tr data-id={item.id} onClick={selectRow} className={item.id === selectedRow ? 'c-table__row--selected' : ''} key={item.id}>
         <td>{ getFullName(item) }</td>
         <td>{item.rating}</td>
         <td>{item.prefer}</td>
@@ -24,21 +24,21 @@ function createRow(item, selectRow, selectedRow) {
 const AccountsPage = ({ selectedRow, selectRow, users, editUser, averageRating }) => {
     return (<React.Fragment>
         <h2>Accounts list</h2>
-        <table className="table">
-            <thead>
+        <table className="с-table u-w-100 u-m-b-2">
+            <thead className="c-table__head">
                 <tr>
                     <th>Account name</th>
                     <th>Rating (Average:{averageRating})</th>
                     <th>Prefer</th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody className="c-table__body c-table__body--selectable">
                 { users.map(item => createRow(item, selectRow, selectedRow)) }
             </tbody>
         </table>
-        <div className="d-flex justify-content-between w-100">
-            <Link className="btn btn-primary" to={routes.MAIN}>Back to home</Link>
-            <button className={ `btn btn-primary ${!selectedRow && 'disabled'}`} onClick={editUser} >Edit selected account</button>
+        <div className="u-display-flex u-justify-content--between u-w-100">
+            <Link className="c-btn c-btn--primary" to={routes.MAIN}>Back to home</Link>
+            <button className="c-btn c-btn--primary" onClick={editUser} disabled={!selectedRow} >Edit selected account</button>
         </div>
     </React.Fragment>)
 }

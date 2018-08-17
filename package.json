@@ -8,8 +8,10 @@
     "babel-eslint": "7.2.3",
     "babel-jest": "20.0.3",
     "babel-loader": "7.1.2",
-    "babel-preset-react-app": "3.1.1",
+    "babel-preset-react-app": "^3.1.1",
     "babel-runtime": "6.26.0",
+    "bem-kit": "0.0.8",
+    "bootstrap": "4.1.3",
     "case-sensitive-paths-webpack-plugin": "2.1.1",
     "chalk": "1.1.3",
     "css-loader": "0.28.7",
@@ -49,7 +51,6 @@
     "sw-precache-webpack-plugin": "0.11.4",
     "test-task-ui-kit": "1.0.0",
     "url-loader": "0.6.2",
-    "webpack": "3.8.1",
     "webpack-dev-server": "2.9.4",
     "webpack-manifest-plugin": "1.3.2",
     "whatwg-fetch": "2.0.3"
@@ -102,6 +103,9 @@
     "extends": "react-app"
   },
   "devDependencies": {
-    "redux-devtools-extension": "^2.13.5"
+    "node-sass": "^4.9.3",
+    "redux-devtools-extension": "^2.13.5",
+    "sass-loader": "^7.1.0",
+    "webpack": "^3.8.1"
   }
 }

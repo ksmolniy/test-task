@@ -30,7 +30,7 @@ const AccountThirdStep = ({ data = {}, handleChange, submit }) => {
                 value={data.happiness}
                 onChange={(e) => handleChange(e,'happiness')}
             />
-            <button className="btn btn-primary" onClick={submit}>Review</button>
+            <button className="c-btn c-btn--primary" onClick={submit}>Review</button>
         </React.Fragment>
     );
 }

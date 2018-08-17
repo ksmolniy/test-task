@@ -11,6 +11,7 @@ const AccountSecondStep = ({ data = {}, submit, handleChange }) => {
         <React.Fragment>
             <FieldRadioGroup
                 label="Prefer"
+                groupName="prefer"
                 value={data.prefer}
                 onChange={(e) => handleChange(e,'prefer')}
                 options={prefers}
@@ -28,12 +29,13 @@ const AccountSecondStep = ({ data = {}, submit, handleChange }) => {
                 onChange={(e) => handleChange(e,'country')} 
             />
             <FieldCheckBox
+                labelForName="policy"
                 label="Policy"
                 text="I aggree"
                 value={data.policy}
                 onChange={(e) => handleChange(e,'policy')} 
             />
-            <button className="btn btn-primary" onClick={submit}>Next step</button>
+            <button className="c-btn c-btn--primary" onClick={submit}>Next step</button>
         </React.Fragment>
     );
 }

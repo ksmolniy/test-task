@@ -1,4 +1,4 @@
-export const getInitialLocalStorageState = reducerName => JSON.parse(localStorage.getItem(`redux-saved-state/${reducerName}`));
+export const getInitialLocalStorageState = (reducerName, initialState) => JSON.parse(localStorage.getItem(`redux-saved-state/${reducerName}`)) || initialState;
 
 export const createLocalStorageMiddleWare = reducerName => store => next => action => {
     const result = next(action);
