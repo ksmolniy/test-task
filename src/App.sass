@@ -1,0 +1,97 @@
+@import "~bem-kit/src/_all-mixins.scss"
+@import "~bem-kit/src/_all-rules.scss"
+@import "~bem-kit/src/_scss/helpers/_colors.scss"
+@import "../../ui-kit/src/styles/style.sass"
+
+.o-
+  &container
+    margin: 0 auto
+    max-width: 1280px
+
+.c-
+  &btn
+    @extend %button
+    @include border-radius(12px)
+    &:disabled
+      cursor: not-allowed
+
+    &--primary
+      @extend %button--blue
+      &:disabled
+        background: darken($blue,10%)
+  &table
+    @extend %table
+    &__head
+      @extend %table__head
+    &__body
+      @extend %table__body
+      &--selectable
+        cursor: pointer
+    &__row
+      &--selected
+        background: $blue !important
+  &navbar
+    display: flex
+    justify-content: space-between
+    &__item
+      flex-grow: 1
+      text-align: center
+      padding: 8px
+      border-top-left-radius: 5px
+      border-top-right-radius: 5px
+      cursor: pointer
+      border: 1px solid #0096D9
+      &--active
+        background: #0096D9
+        color: white
+      &:not(&--active):hover
+        background: #a3dcf7
+
+  &account-preview
+    box-sizing: border-box
+    width: 100%
+    padding: 16px
+
+.u-
+  &display-flex
+    display: flex
+
+  &flex-column
+    flex-direction: column
+
+  &align-items
+    &--center
+      align-items: center
+
+  &p
+    &-t
+      &-4
+        padding-top: 1.5rem
+  &m
+    &-b
+      &-2
+        margin-bottom: 0.75rem
+
+  &justify-content
+    &--between
+      justify-content: space-between
+
+  &w
+    &-100
+      width: 100%
+
+  &border
+    &--black
+      border: 1px solid black
+    &-b
+      &-0
+        border-bottom-color: transparent
+    &-t
+      &-0
+        border-top-color: transparent
+    &-bottom
+      border-bottom: 1px solid #ccc
+
+  &min-height
+    &-3
+      min-height: 1.5rem
